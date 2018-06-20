@@ -1,0 +1,51 @@
+module dtp-fo-nexus9k-role { 
+
+  namespace "http://www.cisco.com/dtp-fo-nexus9k-role";
+  prefix n9k-role;
+
+  import dtp-network { prefix dtpn; }
+  import ietf-inet-types { prefix inet; }
+  import tailf-common { prefix tailf; }
+  import tailf-ncs { prefix ncs; }
+
+  description
+    "This is an add on model to the dtp-network package/service";
+
+  revision 2017-11-28 {
+    description
+      "Initial revision.";
+  }
+
+  grouping nexus9k-role-fo {
+    list nexus9k-role {
+      key name;
+      uses dtpn:function-object;
+    }
+  }
+
+  grouping nexus9k-role-object {
+    leaf-list roles {
+      type enumeration {
+        enum "SAE-Standalone-Switch";
+      }
+    }
+  }
+
+  augment /dtpn:dtp/dtpn:network/dtpn:topology/dtpn:node/dtpn:function-objects {
+    list nexus9k-role {
+      max-elements 1;
+      key "function-object-name";
+      leaf function-object-name {
+        type leafref {
+          path "/dtpn:dtp/dtpn:function-object-definitions/dtpn:node/nexus9k-role/name";
+        }
+      }
+      uses nexus9k-role-object;
+    }
+  }
+
+  augment /dtpn:dtp/dtpn:function-object-definitions/dtpn:node {
+    uses nexus9k-role-fo;
+  }
+
+}
