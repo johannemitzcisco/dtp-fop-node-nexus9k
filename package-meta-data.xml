@@ -4,10 +4,5 @@
   <description>Generated Python package</description>
   <ncs-min-version>4.6</ncs-min-version>
 
-  <component>
-    <name>main</name>
-    <application>
-      <python-class-name>dtp_fop_node_nexus9k.main.Main</python-class-name>
-    </application>
-  </component>
+
 </ncs-package>
